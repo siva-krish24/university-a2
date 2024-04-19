@@ -24,13 +24,13 @@ public class Course {
     @JoinColumn(name = "professorid")
     private Professor professor;
     @ManyToMany 
-    @JoinTable(name = "coures_student", joinColumns = @JoinColumn(name = "courseid"),
+    @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "courseid"),
             inverseJoinColumns = @JoinColumn(name = "studentid"))
-     @JsonIgnoreProperties("courses")   
-
-
-
+     @JsonIgnoreProperties("courses")
      private List<Student> students = new ArrayList<>();
+
+    public Course() {
+    }
 
     public Course(int courseId, String courseName, int credits, Professor professor, List<Student> students ) {
             this.courseId = courseId;
@@ -52,7 +52,7 @@ public class Course {
         return courseName;
     }
 
-    public void setCourseName(String couresName) {
+    public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 

@@ -30,8 +30,8 @@ public class CourseController {
         return courseJpaService.getCoursesById(courseId);
     }
 
-    @PostMapping("/coureses")
-    public Course addCourese(@RequestBody Course course) {
+    @PostMapping("/courses")
+    public Course addCourses(@RequestBody Course course) {
         return courseJpaService.addCourse(course);
     }
 
@@ -50,7 +50,7 @@ public class CourseController {
         return courseJpaService.getCoursesProfessor(courseId);
     }
 
-    @GetMapping("/courese/{courseId}/students")
+    @GetMapping("/courses/{courseId}/students")
     public List<Student> getCourseStudents(@PathVariable("courseId") int courseId) {
         return courseJpaService.getCoursesStudents(courseId);
     }

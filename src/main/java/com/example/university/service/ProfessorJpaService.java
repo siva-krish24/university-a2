@@ -1,5 +1,6 @@
 package com.example.university.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,8 +59,8 @@ public class ProfessorJpaService implements ProfessorRepository {
     public Professor updateProfessor(int professorId, Professor professor) {
         try {
             Professor newProfessor = professorJPaRepository.findById(professorId).get();
-            if (professor.getprofessorName() != null) {
-                newProfessor.setProfessorName(professor.getprofessorName());
+            if (professor.getProfessorName() != null) {
+                newProfessor.setProfessorName(professor.getProfessorName());
             }
             if (professor.getDepartment() != null) {
                 newProfessor.setDepartment(professor.getDepartment());
@@ -72,11 +73,24 @@ public class ProfessorJpaService implements ProfessorRepository {
     }
 
     @Override
-    public void deleteProfessor(int ProfessorId) {
-        try {
-            professorJPaRepository.deleteById(ProfessorId);
-        } catch (Exception e) {
+    public void deleteProfessor(int professorId) {
+        if(!professorJPaRepository.findById(professorId).isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        try {
+            Professor prof = professorJPaRepository.findById(professorId).get();
+            List<Course> updatedCourses = new ArrayList<>();
+            courseJpaRepository.findAll().forEach(course -> {
+                if (course.getProfessor().getProfessorId() == professorId){
+                    course.setProfessor(null);
+                    updatedCourses.add(course);
+                }
+            });
+//            courseJpaRepository.saveAll(updatedCourses);
+            professorJPaRepository.delete(prof);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
     }
 

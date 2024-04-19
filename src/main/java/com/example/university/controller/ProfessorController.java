@@ -18,7 +18,7 @@ public class ProfessorController {
         return professorJpaService.getProfessors();
     }
 
-    @GetMapping("/professors/{professorid}/course")
+    @GetMapping("/professors/{professorId}/courses")
     public List<Course> getProfessorsCourses(@PathVariable("professorId") int professorId) {
         return professorJpaService.getCoursesById(professorId);
 
@@ -40,7 +40,7 @@ public class ProfessorController {
     }
 
     @DeleteMapping("/professors/{professorId}")
-    public void dateteProfessor(@PathVariable("professorId") int professorId) {
+    public void deleteProfessor(@PathVariable("professorId") int professorId) {
         professorJpaService.deleteProfessor(professorId);
     }
 

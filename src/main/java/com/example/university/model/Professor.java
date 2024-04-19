@@ -34,7 +34,7 @@ public class Professor {
         this.professorId = professorId;
     }
 
-    public String getprofessorName() {
+    public String getProfessorName() {
         return name;
     }
 

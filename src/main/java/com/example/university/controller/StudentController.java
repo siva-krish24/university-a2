@@ -27,11 +27,11 @@ public class StudentController {
     public Student addStudent(@RequestBody Student student) {
         return studentJpaService.addStudent(student);
     }
-    @PutMapping("/students{studentId}")
+    @PutMapping("/students/{studentId}")
     public Student updateStudent(@PathVariable("studentId") int studentId, @RequestBody Student student) {
         return studentJpaService.updateStudent(studentId, student);
     }
-    @DeleteMapping("student/{studentId}")
+    @DeleteMapping("students/{studentId}")
     public void deleteStudent(@PathVariable("studentId") int studentId) {
         studentJpaService.deleteStudent(studentId);
     }

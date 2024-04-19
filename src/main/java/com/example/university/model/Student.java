@@ -12,15 +12,17 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private int studentId;
 
     @Column(name = "name")
-    private String name;
+    private String studentName;
 
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany
+    @JoinTable(name = "course_student", joinColumns = @JoinColumn(name = "studentid"),
+            inverseJoinColumns = @JoinColumn(name = "courseid"))
     @JsonIgnoreProperties("students")
     private List<Course> courses = new ArrayList<>();
 
@@ -28,31 +30,27 @@ public class Student {
 
     }
 
-    public Student(int id, String name, String email,List<Course> coures) {
-        this.id = id;
-        this.name = name;
+    public Student(int studentId, String studentName, String email, List<Course> courses) {
+        this.studentId = studentId;
+        this.studentName = studentName;
         this.email = email;
         this.courses = courses;
     }
 
     public int getStudentId() {
-        return id;
+        return studentId;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void set(int id) {
-        this.id = id;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public String getStudentName() {
-        return name;
+        return studentName;
     }
 
-    public void setStudentName(String name) {
-        this.name = name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
     public String getEmail() {
@@ -68,6 +66,6 @@ public class Student {
     }
 
     public void setCourses(List<Course> courses) {
-         this.courses=courses;
+        this.courses = courses;
     }
 }
